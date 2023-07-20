@@ -1,13 +1,23 @@
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
     session_start();
     $errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
     $name = isset($_SESSION['name']) ? $_SESSION['name'] : "";
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : "";
     $tgl_lahir = isset($_SESSION['tgl_lahir']) ? $_SESSION['tgl_lahir'] : "";
+    
     unset($_SESSION['errors']);
     unset($_SESSION['name']);
     unset($_SESSION['username']);
     unset($_SESSION['tgl_lahir']);
+
+    $_SESSION['username'] = $username; // Simpan username yang sudah login ke dalam session
+    header("Location: home.php"); // Arahkan ke halaman home.php atau halaman lain setelah login berhasil
+    exit();
+
+    $activePage = 'register';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,8 +30,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <style>
@@ -32,6 +41,14 @@
         .container a:hover {
             color: #393646 !important;
             text-decoration: underline !important;
+        }
+
+        .noActive{
+            color:rgba(84,83,83,1);
+        }
+
+        .active{
+            color: #000 !important;
         }
     </style>
 </head>
@@ -56,8 +73,8 @@
 
     <div class="container">
         <div class="col-12 text-right mt-3" style="text-align: right !important">
-            <a href="login.php" class="text-decoration-none" style="color: #000;">Login</a> ||
-            <a href="login.php" class="text-decoration-none" style="color: #000;">Register</a>
+            <a href="login.php" class="text-decoration-none noActive <?php echo ($activePage == 'login') ? 'class="active"' : ''; ?>">Login</a> ||
+            <a href="register.php" class="text-decoration-none noActive <?php echo ($activePage == 'register') ? 'active' : ''; ?>">Register</a>
         </div>
     </div>
     <hr>

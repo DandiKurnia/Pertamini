@@ -1,5 +1,6 @@
 <?php 
-
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 include '../koneksi.php';
 
 // Validate form data
@@ -14,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tgl_lahir = $_POST['tgl_lahir'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirm_password'];
-
 
     // Check if password is empty
     if (empty($password)) {
@@ -40,16 +40,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         // Encrypt the password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        
-        // Insert data into the database
-        $sql = "INSERT INTO users (id, name, username, tgl_lahir, password) VALUES (NULL,'$name', '$username', '$tgl_lahir', '$hashed_password')";
-    
-        if (mysqli_query($connect, $sql)) {
-            echo "Registration successful!";
+        // var_dump($hashed_password);
+        // die;
+        // Insert user data into database
+        $stmt = $connect->prepare("INSERT INTO users (name, username, tgl_lahir, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $name, $username, $tgl_lahir, $hashed_password);
+
+        if ($stmt->execute()) {
+            session_start();
+            $_SESSION['success_message'] = "Registration successful. Please login with your credentials.";
+            header("Location: ../view/login.php");
+            exit();
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+            $_SESSION['error_message'] = "Error: Registration failed.";
+            header("Location: ../view/register.php");
+            exit();
         }
-    
+
         mysqli_close($connect);
     }
 }
