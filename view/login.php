@@ -9,9 +9,11 @@
     unset($_SESSION['success_message']);
     unset($_SESSION['username']);
 
-    $_SESSION['username'] = $username; // Simpan username yang sudah login ke dalam session
-    header("Location: index.php"); // Arahkan ke halaman home.php atau halaman lain setelah login berhasil
-    exit();
+    if (isset($_SESSION["username"])) {
+        // Jika sudah, redirect ke halaman dashboard
+        header("Location: index.php");
+        exit();
+    }
 
     $activePage = 'login';
 ?>

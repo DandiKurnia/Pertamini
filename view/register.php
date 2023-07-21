@@ -13,9 +13,11 @@ error_reporting(E_ALL);
     unset($_SESSION['username']);
     unset($_SESSION['tgl_lahir']);
 
-    $_SESSION['username'] = $username; // Simpan username yang sudah login ke dalam session
-    header("Location: home.php"); // Arahkan ke halaman home.php atau halaman lain setelah login berhasil
-    exit();
+    if (isset($_SESSION["username"])) {
+        // Jika sudah, redirect ke halaman dashboard
+        header("Location: login.php");
+        exit();
+    }
 
     $activePage = 'register';
 ?>
