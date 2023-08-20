@@ -24,13 +24,6 @@
 
     $activePage = "profil";
 
-    $sql = "SELECT pembelian.*, users.name, bbm.jenis
-        FROM pembelian
-        INNER JOIN users ON pembelian.users_id = users.id
-        INNER JOIN bbm ON pembelian.bbm_id = bbm.id
-        WHERE users.username = '$username'";
-    
-    $result = mysqli_query($connect, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">

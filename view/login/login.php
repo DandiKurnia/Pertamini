@@ -11,12 +11,12 @@
 
     $success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : "";
     $error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : "";
-    $username = isset($_SESSION['username']) ? $_SESSION['username'] : "";
+    $inputUsername = isset($_SESSION['inputUsername']) ? $_SESSION['inputUsername'] : "";
 
 
     unset($_SESSION['error_message']);
     unset($_SESSION['success_message']);
-    unset($_SESSION['username']);
+    unset($_SESSION['inputUsername']);
 
 
 
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input type="text" class="form-control" placeholder="Username" name="username"
-                                        value="<?php echo htmlspecialchars($username); ?>" required>
+                                        value="<?php echo htmlspecialchars($inputUsername); ?>" required>
                                 </div>
                             </div>
                         </div>

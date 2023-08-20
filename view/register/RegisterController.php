@@ -68,7 +68,7 @@ if (!empty($errors)) {
     $_SESSION['name'] = $name;
     $_SESSION['username'] = $username;
     $_SESSION['tgl_lahir'] = $tgl_lahir;
-    header("Location: ../register.php");
+    header("Location: register.php");
     exit();
 }
 ?>
